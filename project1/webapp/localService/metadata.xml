@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZMM_AUT_ENTRADA_SRV" xml:lang="pt" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <EntityType Name="E_NFCab" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Nfeid"/>
+                </Key>
+                <Property Name="Nfeid" Type="Edm.String" Nullable="false" MaxLength="44" sap:unicode="false" sap:label="Chave de acesso de 44 caracteres" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Werks" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Centro" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Nnf" Type="Edm.String" Nullable="false" MaxLength="9" sap:unicode="false" sap:label="Nº de NF-e de 9 posições" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Serie" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Série" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Cnpj_Emit" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="CNPJ do emissor" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Lifnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Fornecedor" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name1" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Nome" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Dhemi" Type="Edm.String" Nullable="false" MaxLength="14" sap:unicode="false" sap:label="Data/hora da emissão em UTC" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="S1_Vnf" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unicode="false" sap:label="Valor total inclusive impostos" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Waers" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Moeda" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <Property Name="Ponumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Pedido de Compras" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Mat_Doc" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Documento Recebimento" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="toNFItens" Relationship="ZMM_AUT_ENTRADA_SRV.NFCabNFItens" FromRole="FromRole_NFCabNFItens" ToRole="ToRole_NFCabNFItens"/>
+            </EntityType>
+            <EntityType Name="E_NFItens" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Nfeid"/>
+                    <PropertyRef Name="Nitem"/>
+                </Key>
+                <Property Name="Nfeid" Type="Edm.String" Nullable="false" MaxLength="44" sap:unicode="false" sap:label="Chave de acesso de 44 caracteres" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Nitem" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Nº do item" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Xprod" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Descrição do produto ou do serviço" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Qcom" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="4" sap:unicode="false" sap:label="Quantidade real fornecida" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vprod" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="2" sap:unicode="false" sap:label="Valor total inclusive impostos" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="NFCabNFItens" sap:content-version="1">
+                <End Type="ZMM_AUT_ENTRADA_SRV.E_NFCab" Multiplicity="1" Role="FromRole_NFCabNFItens"/>
+                <End Type="ZMM_AUT_ENTRADA_SRV.E_NFItens" Multiplicity="*" Role="ToRole_NFCabNFItens"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_NFCabNFItens">
+                        <PropertyRef Name="Nfeid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_NFCabNFItens">
+                        <PropertyRef Name="Nfeid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZMM_AUT_ENTRADA_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="E_NFCabSet" EntityType="ZMM_AUT_ENTRADA_SRV.E_NFCab" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="E_NFItensSet" EntityType="ZMM_AUT_ENTRADA_SRV.E_NFItens" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="NFCabNFItensSet" Association="ZMM_AUT_ENTRADA_SRV.NFCabNFItens" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="E_NFCabSet" Role="FromRole_NFCabNFItens"/>
+                    <End EntitySet="E_NFItensSet" Role="ToRole_NFCabNFItens"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="https://s4-dev.coopercitrus.com.br:443/sap/opu/odata/sap/ZMM_AUT_ENTRADA_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://s4-dev.coopercitrus.com.br:443/sap/opu/odata/sap/ZMM_AUT_ENTRADA_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -21,19 +21,7 @@
                         layout="ColumnLayout"
                         editable="true"
                     >
-                        <f:toolbar>
-                            <Toolbar>
-                                <content>
-                                    <ToolbarSpacer />
-                                    <Button
-                                        icon="sap-icon://create"
-                                        text="{i18n>newCustomerButtonText}"
-                                        press=".onSavePress"
-                                        enabled="{= ${customer>/CustomerName}.length > 0 }"
-                                    />
-                                </content>
-                            </Toolbar>
-                        </f:toolbar>
+                         
                         <f:content>
                             <core:Title text="{i18n>generalDataFormContainerTitle}" />
                             <Label text="{i18n>formLabelText}" />
